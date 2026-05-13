@@ -3,7 +3,7 @@
 ask_confirmation <- function(msg) {
   # Cannot use askYesNo, cannot use readLine, both won't work in 
   # non-interactive mode as forced by Rscript in bat/sh. 
-  message(paste(msg, "[y/n]: "))
+  message(paste(msg, "[y/n] + Enter: "))
   response <- scan("stdin", character(), n = 1, quiet = TRUE)
   result <- tolower(trimws(response)) %in% c("y", "yes")
   return(result)
@@ -41,11 +41,13 @@ if (!requireNamespace("remotes", quietly = TRUE) || !requireNamespace("milQuant"
 new_milQuant_version_available <- function() {
   installed_version <- getNamespaceVersion('milQuant')
   repo <- 'lsteinmann/milQuant'
-  gh <- try(suppressWarnings(
-    jsonlite::read_json(paste0('https://api.github.com/repos/',
-                               repo, '/releases/latest'))
-    ),
-            silent = TRUE)
+  gh <- try(
+    suppressWarnings(
+      jsonlite::read_json(paste0('https://api.github.com/repos/',
+                          repo, '/releases/latest'))
+      ), 
+    silent = TRUE
+  )
   if (!inherits(gh, "try-error")) {
     new_version <- gsub('v', '', gh$tag_name)
     installed_version <- as.character(installed_version)
@@ -84,5 +86,5 @@ if (new_milQuant_version_available()) ask_and_update()
 suppressMessages(library(milQuant))
 milQuant::milQ_message("Launching milQuant in your browser...") |> message()
 
-options(shiny.launch.browser = TRUE)
+options("shiny.launch.browser" = TRUE)
 run_milQuant_app()
