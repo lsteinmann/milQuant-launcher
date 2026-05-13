@@ -37,11 +37,11 @@ new_milQuant_version_available <- function() {
 }
 
 ask_and_update <- function() {
-  run_update <- tryCatch(
-    utils::askYesNo("Do you want to update milQuant now?"),
+  response <- tryCatch(
+    readline("Do you want to update milQuant now? [y/n]: "),
     error = function(e) NA
   )
-  # should this run in while until askYesNo doesnt fail? what if people mistype?
+  run_update <- tolower(trimws(response)) %in% c("y", "yes")
 
   if (isTRUE(run_update)) {
     milQuant::milQ_message("Updating...") |> message()
@@ -62,4 +62,5 @@ if (new_milQuant_version_available()) ask_and_update()
 suppressMessages(library(milQuant))
 milQuant::milQ_message("Launching milQuant in your browser...") |> message()
 
+options(shiny.launch.browser = TRUE)
 run_milQuant_app()
