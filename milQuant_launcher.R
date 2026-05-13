@@ -6,7 +6,11 @@ ask_confirmation <- function(msg) {
   message(paste(msg, "[y/n] + Enter: "))
   response <- scan("stdin", character(), n = 1, quiet = TRUE)
   result <- tolower(trimws(response)) %in% c("y", "yes")
-  return(result)
+  if (length(result) == 0) {
+    return(FALSE)
+  } else {
+    return(result)
+  }
 }
 
 # remotes and (obviously) milQuant have to be installed first. 
