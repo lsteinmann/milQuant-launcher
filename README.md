@@ -23,9 +23,15 @@ The first time you run the launcher, it will detect that milQuant is not install
 
 ---
 
+## Installation on Windows
+
+Download the launcher files and run `setup.bat` once by double-clicking it. This will install the launcher to your user profile and create a **milQuant shortcut on your desktop**. After that, you can start milQuant directly from the desktop shortcut and can delete or move the downloaded files.
+
+---
+
 ## How to start milQuant
 
-**Windows:** Double-click `milQuant.bat`
+**Windows:** Double-click the **milQuant shortcut** on your desktop.
 
 **macOS:** Double-click `milQuant.command`
 > The first time, macOS may block the file. Right-click it, choose **Open**, and confirm.
