@@ -12,6 +12,15 @@ if (!requireNamespace("milQuant")) {
   )
 }
 
+ask_confirmation <- function(msg) {
+  # Cannot use askYesNo, cannot use readLine, both won't work in 
+  # non-interactive mode as forced by Rscript in bat/sh. 
+  message(paste(msg, "[y/n]: "))
+  response <- scan("stdin", character(), n = 1, quiet = TRUE)
+  result <- tolower(trimws(response)) %in% c("y", "yes")
+  return(result)
+}
+
 new_milQuant_version_available <- function() {
   installed_version <- getNamespaceVersion('milQuant')
   repo <- 'lsteinmann/milQuant'
@@ -37,11 +46,7 @@ new_milQuant_version_available <- function() {
 }
 
 ask_and_update <- function() {
-  response <- tryCatch(
-    readline("Do you want to update milQuant now? [y/n]: "),
-    error = function(e) NA
-  )
-  run_update <- tolower(trimws(response)) %in% c("y", "yes")
+  run_update <- ask_confirmation("Do you want to update milQuant now?")
 
   if (isTRUE(run_update)) {
     milQuant::milQ_message("Updating...") |> message()
