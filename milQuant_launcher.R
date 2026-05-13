@@ -19,13 +19,14 @@ if (!requireNamespace("remotes", quietly = TRUE) || !requireNamespace("milQuant"
 
   run_installation <- ask_confirmation("Do you want to start the installation now?")
   if (!run_installation) {
-    stop("Quitting. Try again later.")
+    message("Quitting. Try again later.")
+    quit(save = "no", status = 0)
   }
 
-  if (!requireNamespace("remotes") && run_installation) {
+  if (!requireNamespace("remotes")) {
     install.packages("remotes")
   }
-  if (!requireNamespace("milQuant") && run_installation) {
+  if (!requireNamespace("milQuant")) {
     message("milQuant not found, installing...")
     remotes::install_github(
       "lsteinmann/milQuant", 
