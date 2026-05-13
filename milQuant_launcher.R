@@ -1,17 +1,5 @@
 # milQuant_launcher.R
 
-# Has to be installed first. Forced. I am assuming that you want this 
-# if you run the launcher.
-if (!requireNamespace("milQuant")) {
-  message("milQuant not found, installing...")
-  remotes::install_github(
-    "lsteinmann/milQuant", 
-    ref = remotes::github_release(),
-    upgrade = "never", 
-    dependencies = TRUE
-  )
-}
-
 ask_confirmation <- function(msg) {
   # Cannot use askYesNo, cannot use readLine, both won't work in 
   # non-interactive mode as forced by Rscript in bat/sh. 
@@ -19,6 +7,34 @@ ask_confirmation <- function(msg) {
   response <- scan("stdin", character(), n = 1, quiet = TRUE)
   result <- tolower(trimws(response)) %in% c("y", "yes")
   return(result)
+}
+
+# remotes and (obviously) milQuant have to be installed first. 
+if (!requireNamespace("remotes", quietly = TRUE) || !requireNamespace("milQuant", quietly = TRUE)) {
+  message("Hi!")
+  message("The R-packages 'remotes' and 'milQuant' are required, but not installed.")
+  message("This will take a while (maybe even a few minutes), and you need an internet connection.")
+  message("There will be lots of messages in this window.")
+  message("That is normal.")
+
+  run_installation <- ask_confirmation("Do you want to start the installation now?")
+  if (!run_installation) {
+    stop("Quitting. Try again later.")
+  }
+
+  if (!requireNamespace("remotes") && run_installation) {
+    install.packages("remotes")
+  }
+  if (!requireNamespace("milQuant") && run_installation) {
+    message("milQuant not found, installing...")
+    remotes::install_github(
+      "lsteinmann/milQuant", 
+      ref = remotes::github_release(),
+      upgrade = "never", 
+      dependencies = TRUE
+    )
+  }
+  message("Phew... now have fun & kolay gelsin.")
 }
 
 new_milQuant_version_available <- function() {
