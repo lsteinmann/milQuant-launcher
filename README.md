@@ -70,3 +70,5 @@ Make sure you have an internet connection and try again. If the problem persists
 ## About
 
 milQuant was developed for the [Miletus Excavation Project](https://www.miletgrabung.uni-hamburg.de/). Questions and bug reports are welcome via the [issue tracker](https://github.com/lsteinmann/milQuant/issues). However, milQuant and this launcher is my hobby project, not my job. Please be patient. 
+
+The launcher files and README were to some extent written by Claude.ai. 
