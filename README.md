@@ -25,6 +25,8 @@ The first time you run the launcher, it will detect that milQuant is not install
 
 ## Installation on Windows
 
+First, edit milQuant.bat in a text editor and replace `_ADD_USER_`and `_ADD_VERISON` in the path, or find the path of your R installation and the `bin/RScript.exe` and add that. 
+
 Download the launcher files and run `setup.bat` once by double-clicking it. This will install the launcher to your user profile and create a **milQuant shortcut on your desktop**. After that, you can start milQuant directly from the desktop shortcut and can delete or move the downloaded files.
 
 ---
